@@ -94,15 +94,15 @@ bool Features::read(const Character &character) {
     const Node *first = &nodes[sid][0];
     const Node *last  = &nodes[sid][nodes[sid].size()-1];
     getVertex(first, last, 0, &node_pairs);
-    makeVertexFeature(sid, &node_pairs);
+    makeVertexFeature((int) sid, &node_pairs);
     if (prev) {
-      makeMoveFeature(sid, prev, first);
+      makeMoveFeature((int) sid, prev, first);
     }
     prev = last;
   }
 
   addFeature(2000000,  nodes.size());
-  addFeature(2000000 + nodes.size(), 10);
+  addFeature(2000000 + (int) nodes.size(), 10);
 
   std::sort(features_.begin(), features_.end(), FeatureNodeCmp());
 
@@ -170,7 +170,7 @@ void Features::makeVertexFeature(int sid,
     if (!first) {
       continue;
     }
-    const int offset = sid * 1000 + 20 * i;
+    const int offset = sid * 1000 + 20 * (int) i;
     makeBasicFeature(offset, first, last);
   }
 }
